@@ -10,10 +10,11 @@ class Punto {
 public:
 	Punto(int idPunto, vector<float> values, string nombre) : _idPunto(idPunto), _idCluster(-1), _nombre(nombre), _values(values) {}
 
-	int getID() { return _idPunto; }
+	int getID() const { return _idPunto; }
 	int setCluster(int id) { _idCluster = id; }
 	int getCluster() { return _idCluster; }
-	int getValue(size_t idx) { return _values[idx]; }
+	int getValue(size_t idx) const { return _values[idx]; }
+	int operator[](size_t idx) const { return _values[idx]; }
 	int totalValues() { return _values.size(); }
 	void addValue(float value) { _values.push_back(value); }
 	string getNombre() { return _nombre; }
