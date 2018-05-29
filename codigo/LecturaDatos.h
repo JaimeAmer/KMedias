@@ -11,13 +11,13 @@ using namespace std;
 class LecturaDatos {
 public:
 
-	LecturaDatos() {}
+	LecturaDatos(string rutaFichero) : _rutaFichero(rutaFichero) {}
 
-	bool leerFichero(string rutaFichero) {
+	bool leerFichero() {
 		_datos.clear();
 
 		ifstream lectura;
-		lectura.open(rutaFichero);
+		lectura.open(_rutaFichero);
 
 		string linea;
 
@@ -36,14 +36,15 @@ public:
 		return _datos;
 	}
 
-	vector<vector<float>> matrizDatos() {
-		vector<vector<float>> v;
+	vector<vector<double>> matrizDatos() {
+		vector<vector<double>> v;
 		for (auto it = _datos.begin(); it != _datos.end(); it++) {
 			vector<string> vs = split(*it, ',');
-			vector<float> vf;
+			vector<double> vf;
 			for (auto it2 = vs.begin(); it2 != vs.end(); it2++) {
-				vf.push_back(strtof(it2->c_str(),0));
+				vf.push_back(parseDouble(*it2));
 			}
+			v.push_back(vf);
 		}
 		return v;
 	}
@@ -64,6 +65,8 @@ private:
 		v.push_back(palabra);
 		return v;
 	}
+
+	double parseDouble(string x) { return strtod(x.c_str(), 0); }
 
 	string _rutaFichero;
 	vector<string> _datos;
